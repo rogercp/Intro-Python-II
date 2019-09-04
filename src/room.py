@@ -11,8 +11,9 @@ class Room:
         self.e_to = None
 
 
-    def __str__(self):
-        return (f"{self.nameOfRoom} : {self.description}")
 
-    def __repr__(self):
-        return (f"{self.nameOfRoom} : {self.description}")
+    def __str__(self):
+        str = f"\n------------------------------"
+        str += f"\n{self.nameOfRoom}"
+        str += f"\n {self.description}"
+        return str

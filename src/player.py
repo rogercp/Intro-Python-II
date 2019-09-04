@@ -7,9 +7,10 @@ class Player:
         self.currentRoom = currentRoom
         self.inventory = []
 
-    def __str__(self):
-        return (f"{self.name} is currently in room{self.currentRoom}")
 
-    def __repr__(self):
-        return (f"{self.name}:{self.currentRoom}")
-
+    def move(self, direction):
+        if getattr(self.currentRoom, f"{direction}_to") is not None:
+            self.currentRoom = getattr(self.currentRoom, f"{direction}_to")
+            print(self.currentRoom)
+        else:
+            print("Sorry the next room is locked")

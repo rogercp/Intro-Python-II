@@ -39,21 +39,21 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player1 = Player("Kevin Van Nord", "outside")
+player1 = Player("Kevin Van Nord", room["outside"])
 current_room = player1.currentRoom
 print(current_room)
 
-directions  = ["n", "w", "s", "e"]
-
-command = input("----")
+directions = ["n", "w", "s", "e"]
 
 
-if command in directions:
-    player1.move(command)
-elif command == "q":
-    exit()
-else:
-    print("command not recognized")
+while True:
+    command = input("----")
+    if command in directions:
+        player1.move(command)
+    elif command == "q":
+        exit()
+    else:
+        print("command not recognized")
 
 # Write a loop that:
 #
