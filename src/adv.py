@@ -40,6 +40,20 @@ room['treasure'].s_to = room['narrow']
 # Make a new player object that is currently in the 'outside' room.
 
 player1 = Player("Kevin Van Nord", "outside")
+current_room = player1.currentRoom
+print(current_room)
+
+directions  = ["n", "w", "s", "e"]
+
+command = input("----")
+
+
+if command in directions:
+    player1.move(command)
+elif command == "q":
+    exit()
+else:
+    print("command not recognized")
 
 # Write a loop that:
 #
@@ -47,16 +61,7 @@ player1 = Player("Kevin Van Nord", "outside")
 # * Prints the current description (the textwrap module might be useful here).
 # * Waits for user input and decides what to do.
 #
-
-
-
-
-
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
-
-
-
-
 # If the user enters "q", quit the game.
