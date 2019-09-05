@@ -16,9 +16,9 @@ class Room:
 
     def current_items(self):
         if len(self.items_stored) < 1:
-            return f'----- room:[empty]'
+            return f' room:[empty]'
         else:
-            return ', '.join(str(i) for i in self.items_stored)
+            return ','.join(str(i) for i in self.items_stored)
 
     def placed_item(self, item):
         self.items_stored.append(item)
