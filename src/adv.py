@@ -75,12 +75,15 @@ while True:
     elif command in directions:
         player.move(f"{command}_to")
     elif command == "pickup":
+        print(player.current_room.current_items())
         cmd = input("Pickup an item from room:")
         player.pick_up_item(cmd)
         player.current_room.remove_item(item[cmd])
     elif command == "drop":
+        print(player.print_inventory())
         cmd = input("Drop item from your inventory:")
-        player.drop_item(cmd)
+        player.drop_item(item[cmd])
+        player.current_room.placed_item(item[cmd])
     else:
         print("-------command is not recognized")
 

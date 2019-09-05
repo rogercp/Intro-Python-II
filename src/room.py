@@ -24,5 +24,4 @@ class Room:
         self.items_stored.append(item)
 
     def remove_item(self, item):
-        print(self.current_items())
         self.items_stored.remove(item)
