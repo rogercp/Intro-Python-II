@@ -1,7 +1,6 @@
 from room import Room
 from player import Player
 from item import Item
-# Declare all the rooms
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -24,21 +23,20 @@ earlier adventurers. The only exit is to the south."""),
 
 
 item = {
-    'stick': Item("stick",
-                    """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu""" ),
+    'potion': Item('potion', 'Recovers 25 HP'),
 
-    'book': Item("book", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+    'elixer': Item('elixer', 'Recovers 25 MP'),
 
-    'sword': Item("sword", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+    'shield': Item('shield', 'Legendary shield of Zeus'),
 
-    'compass':  Item("compass", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+    'katana': Item('katana', 'A blade that can cut through anything'),
 
-    'bow': Item("bow", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+    'sword': Item('sword', 'Ancient sword from the East'),
+
+    'spear': Item('spear', 'A cursed spear once wielded by ChuCulain'),
+
+    'scroll': Item('scroll', 'A magic book that summons thunder against enemies')
 }
-# for key,value in room.items():
-#     print(f"{key} :{value}")
-
-# Link rooms together
 
 room['outside'].n_to = room['foyer']
 room['foyer'].s_to = room['outside']
@@ -50,51 +48,44 @@ room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
 
-room["outside"].items = [item["stick"], item["bow"], item["compass"]]
-room["foyer"].items = [item["book"], item["sword"]]
-room["overlook"].items = [item["sword"], item["compass"], item["bow"]]
-room["narrow"].items = [item["bow"]]
-room["treasure"].items = [item["compass"]]
+room['treasure'].items_stored = [item['spear'], item['scroll']]
+room['foyer'].items_stored = [item['elixer'], item['shield'],item['potion']]
+room['narrow'].items_stored = [item['potion'], item['elixer']]
+room['overlook'].items_stored = [item['sword'], item['katana']]
 
 
-#
-# Main
-#
+player = Player("Kevin Van Nord",room["outside"],[item['katana'],item['sword']])
 
-# Make a new player object that is currently in the 'outside' room.
-
-player1 = Player("Kevin Van Nord", room["outside"],[item["book"],item["sword"]])
 directions = ["n", "w", "s", "e"]
-
-current_room = player1.currentRoom
-current_inventory = player1.inventory
-print(current_room)
-print(current_inventory)
-
 
 
 while True:
-    command = input("where to go?---->")
-    if command in directions:
-        player1.move(command)
-    elif command == "q":
-        exit()
+    print(f"location {player.current_room}\n")
+    print(f"room items:", player.current_room.current_items())
+    print("inventory ===", player.print_inventory())
+    print("//////////////You can: ")
+    print("Enter in direction letter to move north(n), east(e), south(s), west(w)")
+    print("Enter 'pickup' or 'drop' to select items")
+    print("'q' to quit game//////////////")
+
+    command = input("Pick an action:")
+
+    if command == "q":
+        quit()
+    elif command in directions:
+        player.move(f"{command}_to")
+    elif command == "pickup":
+        cmd = input("Pickup an item from room:")
+        player.pick_up_item(cmd)
+        player.current_room.remove_item(item[cmd])
+    elif command == "drop":
+        cmd = input("Drop item from your inventory:")
+        player.drop_item(cmd)
     else:
-        print("command not recognized")
+        print("-------command is not recognized")
 
 
 
 
-
-# Write a loop that:
-#
-# * Prints the current room name
-# * Prints the current description (the textwrap module might be useful here).
-# * Waits for user input and decides what to do.
-#
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
 
 

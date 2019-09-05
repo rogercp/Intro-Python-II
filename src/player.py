@@ -2,18 +2,30 @@
 # currently.
 
 class Player:
-    def __init__(self, at_room):
-        self.at_room = at_room
-        self.items_held = []
+    def __init__(self,name, current_room, inventory=[]):
+        self.current_room = current_room
+        self.name = name
+        self.inventory = inventory
 
-    def relocate(self, new_room):
-        self.at_room = new_room
+    def print_inventory(self):
+        if len(self.inventory) < 1:
+            return f'----- inventory:[empty]'
+        else:
+            return ', '.join(str(i) for i in self.inventory)
 
-    def obtain_item(self, item):
-        self.items_held.append(item)
+    def move(self, direction):
+        if getattr(self.current_room, f"{direction}") is not None:
+            self.current_room = getattr(self.current_room, f"{direction}")
+        else:
+            print("------- sorry next room is locked")
+
+    def pick_up_item(self, item):
+        self.inventory.append(item)
 
     def drop_item(self, item):
-        self.items_held.remove(item)
+        self.inventory.remove(item)
+
+
 
 
 
