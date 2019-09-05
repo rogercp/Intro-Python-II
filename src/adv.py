@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 # Declare all the rooms
 
 room = {
@@ -22,6 +23,21 @@ earlier adventurers. The only exit is to the south."""),
 }
 
 
+item = {
+    'stick': Item("stick",
+                    """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu""" ),
+
+    'book': Item("book", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+
+    'sword': Item("sword", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+
+    'compass':  Item("compass", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+
+    'bow': Item("bow", """with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu"""),
+}
+# for key,value in room.items():
+#     print(f"{key} :{value}")
+
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -33,27 +49,42 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
+
+room["outside"].items = [item["stick"], item["bow"], item["compass"]]
+room["foyer"].items = [item["book"], item["sword"]]
+room["overlook"].items = [item["sword"], item["compass"], item["bow"]]
+room["narrow"].items = [item["bow"]]
+room["treasure"].items = [item["compass"]]
+
+
 #
 # Main
 #
 
 # Make a new player object that is currently in the 'outside' room.
 
-player1 = Player("Kevin Van Nord", room["outside"])
-current_room = player1.currentRoom
-print(current_room)
-
+player1 = Player("Kevin Van Nord", room["outside"],[item["book"],item["sword"]])
 directions = ["n", "w", "s", "e"]
+
+current_room = player1.currentRoom
+current_inventory = player1.inventory
+print(current_room)
+print(current_inventory)
+
 
 
 while True:
-    command = input("----")
+    command = input("where to go?---->")
     if command in directions:
         player1.move(command)
     elif command == "q":
         exit()
     else:
         print("command not recognized")
+
+
+
+
 
 # Write a loop that:
 #
@@ -65,3 +96,5 @@ while True:
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+

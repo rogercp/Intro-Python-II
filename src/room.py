@@ -2,18 +2,16 @@
 # description attributes.
 
 class Room:
-    def __init__(self,nameOfRoom ,description):
-        self.nameOfRoom = nameOfRoom
+    def __init__(self, name, description):
+        self.name = name
         self.description = description
-        self.n_to = None
-        self.s_to = None
-        self.w_to = None
-        self.e_to = None
-
-
+        self.items_stored = []
 
     def __str__(self):
-        str = f"\n------------------------------"
-        str += f"\n{self.nameOfRoom}"
-        str += f"\n {self.description}"
-        return str
+        return f' At "{self.name} , "{self.description}"'
+
+    def placed_item(self, item):
+        self.items_stored.append(item)
+
+    def remove_item(self, item):
+        self.items_stored.remove(item)
